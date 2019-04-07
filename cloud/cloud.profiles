@@ -1,0 +1,31 @@
+docker-master:
+  # points back at provider configuration
+  provider: local-kvm
+  base_domain: centos7.0
+  ip_source: qemu-agent
+  ssh_username: root
+  password: Test2018!
+
+docker-slave:
+  # points back at provider configuration
+  provider: local-kvm
+  base_domain: centos7.0
+  ip_source: qemu-agent
+  ssh_username: root
+  password: Test2018!
+
+nginx:
+  # points back at provider configuration
+  provider: local-kvm
+  base_domain: centos7.0
+  ip_source: qemu-agent
+  ssh_username: root
+  password: Test2018!
+
+cirros_openstack:
+  provider: myopenstack
+  image: cirros
+  size: cirros256
+  ssh_key_name: linius
+  ssh_key_file: /home/joris/.ssh/id_rsa
+  network: private

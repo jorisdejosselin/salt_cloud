@@ -1,0 +1,8 @@
+{% set docker = salt['grains.filter_by']({
+    'Debian': {
+        'docker_repo': 'curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"',
+    },
+    'RedHat': {
+        'docker_repo': 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo',
+    },
+}, merge=salt['pillar.get']('docker:lookup')) %}

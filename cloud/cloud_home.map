@@ -1,0 +1,17 @@
+docker-master:
+  - docker-master01:
+      grains:
+          hostname: master01
+          ip: 192.168.178.50
+          virtmem: 2
+          virtcpu: 2
+          
+docker-slave:
+  - docker-slave01:
+      grains:
+          hostname: slave01
+          ip: 192.168.178.51
+          virtmem: 2
+          virtcpu: 2
+
+

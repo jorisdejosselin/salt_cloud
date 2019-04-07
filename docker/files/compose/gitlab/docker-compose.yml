@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+   gitlab:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    hostname: 'git.joict.nl'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://git.joict.nl'
+        # Add any other gitlab.rb configuration here, each on its own line
+    expose:
+     - '80'
+
+volumes:
+    db_data: {}

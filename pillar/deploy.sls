@@ -1,0 +1,1 @@
+saltmaster_deploydir: /var/deploy.py

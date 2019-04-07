@@ -1,0 +1,15 @@
+local-kvm:
+  driver: libvirt
+  url: qemu:///system
+  # work around flag for XML validation errors while cloning
+  validate_xml: no
+
+myopenstack:
+  driver: openstack
+  region_name: RegionOne
+  auth:
+    domain_name = 'Default'
+    username: 'admin'
+    password: 'Test2018!'
+    project_name: 'demo'
+    auth_url: 'http://192.168.178.150/identity/v3'

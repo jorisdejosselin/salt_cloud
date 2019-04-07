@@ -1,0 +1,42 @@
+{% set ip = salt['mine.get']('docker-master*', 'network.ip_addrs', tgt_type='glob') | dictsort() %}
+version: '3'
+
+{%- for server, addrs in ip %}
+services:
+  frontend:
+    container_name: frontend
+    image: {{ addrs[0] }}:5000/cloud_opdracht
+    build: .
+    deploy:
+      replicas: 1
+    ports:
+      - "80:80"
+    command: bash -c "ls /usr/src/app/ && rm -rf /usr/src/app/* && git clone https://github.com/jorisdejosselin/Cloud.git /usr/src/app/. && git checkout develop && pip install --no-cache-dir -r requirements.txt &&  python _main_.py"
+  backend:
+    container_name: backend
+    image: {{ addrs[0] }}:5000/cloud_opdracht
+    build: .
+    deploy:
+      replicas: 1
+    ports:
+      - "8080:5000"
+    command: bash -c "ls /usr/src/app/ && rm -rf /usr/src/app/* && git clone https://github.com/jorisdejosselin/Cloud.git /usr/src/app/. && git checkout develop && pip install --no-cache-dir -r requirements.txt && python Back-end_API.py"
+  volumes:
+    example:
+      driver_opts:
+        type: nfs
+        o: addr={{ addrs[0] }},rw
+        device: ":/root/mongodata"
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017"
+    volumes:
+      - /root/mongodata:/application
+    
+{%- endfor %}

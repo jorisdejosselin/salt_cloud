@@ -1,0 +1,7 @@
+{% set ip = salt['mine.get']('docker-master*', 'network.ip_addrs', tgt_type='glob') | dictsort() %}
+
+{%- for server, addrs in ip %}
+{
+    "insecure-registries" : ["{{ addrs[0] }}:5000"]
+}
+{%- endfor %}
