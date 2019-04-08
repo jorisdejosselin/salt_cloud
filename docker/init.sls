@@ -66,6 +66,7 @@ permissive:
 add_insecure_reg:
   file.managed:
     - name: /etc/docker/daemon.json 
+    - makedirs: True
     - source: salt://docker/files/deamon.json.jinja
     - template: jinja
 
