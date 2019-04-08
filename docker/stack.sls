@@ -4,7 +4,6 @@ run_compose_file:
     - cwd: /root/compose/cloud_opdracht
     {%- for server, addrs in ip %}
     - name: | 
-        docker stack deploy -c docker-compose.yml test
-        docker stack rm test
+        sleep 10
         docker stack deploy -c docker-compose.yml test
     {%- endfor %}
