@@ -73,3 +73,5 @@ start_docker_service:
   service.running:
     - name: docker
     - enable: True
+    - watch:
+      - add_insecure_reg
