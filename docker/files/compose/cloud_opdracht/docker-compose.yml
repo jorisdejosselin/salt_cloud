@@ -21,17 +21,17 @@ services:
     ports:
       - "8080:5000"
     command: bash -c "ls /usr/src/app/ && rm -rf /usr/src/app/* && git clone https://github.com/jorisdejosselin/Cloud.git /usr/src/app/. && git checkout develop && pip install --no-cache-dir -r requirements.txt && python Back-end_API.py"
-#   mongo:
-#     container_name: mongo
-#     image: mongo
-#     restart: always
-#     environment:
-#       MONGO_INITDB_ROOT_USERNAME: root
-#       MONGO_INITDB_ROOT_PASSWORD: example
-#     ports:
-#       - "27017"
-#     volumes:
-#       - /root/mongodata:/application
+  mongo:
+    container_name: mongo
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017"
+    # volumes:
+    #   - /root/mongodata:/application
 # volumes:
 #   example:
 #     driver_opts:
