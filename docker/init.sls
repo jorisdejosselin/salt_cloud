@@ -1,26 +1,26 @@
 {% from "docker/map.jinja" import docker with context %}
 
-docker_ports:
-  service.running:
-    - name: firewalld
-    - enable: True
-  firewalld.service:
-    - name: docker
-    - ports:
-      - 2376/tcp
-      - 2377/tcp
-      - 2377/tcp
-      - 7946/tcp
-      - 7946/udp
-      - 4789/udp
-      - 80/tcp
-      - 443/tcp
-docker_firewall:
-  firewalld.present:
-    - name: public
-    - services:
-      - docker
-      - ssh
+# docker_ports:
+#   service.running:
+#     - name: firewalld
+#     - enable: True
+#   firewalld.service:
+#     - name: docker
+#     - ports:
+#       - 2376/tcp
+#       - 2377/tcp
+#       - 2377/tcp
+#       - 7946/tcp
+#       - 7946/udp
+#       - 4789/udp
+#       - 80/tcp
+#       - 443/tcp
+# docker_firewall:
+#   firewalld.present:
+#     - name: public
+#     - services:
+#       - docker
+#       - ssh
 
 net.ipv4.ip_forward:
   sysctl.present:
@@ -73,5 +73,6 @@ start_docker_service:
   service.running:
     - name: docker
     - enable: True
+    - reload: True
     - watch:
       - add_insecure_reg
