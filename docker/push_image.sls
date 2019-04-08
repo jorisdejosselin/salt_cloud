@@ -1,10 +1,10 @@
 {% set ip = salt['mine.get']('docker-master*', 'network.ip_addrs', tgt_type='glob') | dictsort() %}
-run_compose_file:
+push_images:
   cmd.run:
     - cwd: /root/compose/cloud_opdracht
     {%- for server, addrs in ip %}
     - name: | 
-        docker stack deploy -c docker-compose.yml test
-        docker stack rm test
-        docker stack deploy -c docker-compose.yml test
+        docker run -d -p 5000:5000 --restart=always --name registry registry:2
+        docker build . -t {{ addrs[0] }}:5000/cloud_opdracht
+        docker push {{ addrs[0] }}:5000/cloud_opdracht
     {%- endfor %}
