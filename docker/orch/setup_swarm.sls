@@ -26,7 +26,7 @@ init_docker-slave:
     - sls:
       - docker.slave
 
-pull_image:
+push_image:
   salt.state:
     - tgt: 'docker-master*'
     - sls:
